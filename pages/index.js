@@ -1,38 +1,25 @@
+import { Avatar, Box, Button, Code, Container, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import Head from 'next/head';
-import { useAuth } from "../lib/auth";
-import styles from '../styles/Home.module.css';
+import { useAuth } from "@/lib/auth";
+import Navbar from "@/components/Navbar";
+import DashboardShell from "@/components/DashboardShell";
+import FreePlanEmptyState from "@/components/FreePlanEmptyState";
+import EmptyState from "@/components/EmptyState";
+
 
 export default function Home() {
   const auth = useAuth();
   return (
-    <div className={styles.container}>
+    <Flex direction="column">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Fast Feedback
-        </h1>
-        {
-          auth?.user ?
-            (<button onClick={() => auth.signout()}>Signout</button>) :
-            (<button onClick={() => auth.signinWithGithub()}>Sign In</button>)
-        }
-        <div>{auth ? auth.user?.name : ''}</div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+      {
+        auth?.user ?
+          (<Button onClick={() => auth.signout()}>Signout</Button>) :
+          (<Button marginTop={4} variant="link" size="sm" onClick={() => auth.signinWithGithub()}>Sign In</Button>)
+      }
+    </Flex>
   );
 }
